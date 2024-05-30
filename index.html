@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamified STEM Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,800;0,900;1,600&amp;display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <section class="header">
+        <!-- Background Video -->
+        <video autoplay muted loop id="bgVideo">
+            <source src="bg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <nav>
+            <a href="index.html"><img class="img_logo" src="Logo1.png"></a>
+            <h2 class="logo_text">PlayForge</h2>
+            <div class="nav_links" id="navlinks">
+                <i class='bx bx-x' onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Game.html">Game</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="container" id="authButtons">
+                <button class="login_btn" id="loginBtn">Login</button>
+                <button class="signup_Btn" id="signupBtn">Sign Up</button>
+            </div>
+            <div id="profile" style="display: none;">
+                <p id="user-name"></p>
+                <button id="logoutBtn">Logout</button>
+            </div>
+            <i class='bx bx-menu' onclick="showMenu()"></i>
+        </nav>
+        <div class="text_box">
+            <h1>Welcome</h1>
+            <p>Introducing the pinnacle of gaming innovation.</p>
+            <p>Effortlessly conquer challenges, quests, and victory paths.</p>
+            <a href="signup.html" class="hero_btn">Get Started -></a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('profile').style.display = 'block';
+                document.getElementById('user-name').textContent = `Hello, ${username}`;
+                document.getElementById('authButtons').style.display = 'none';
+            }
+
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('username');
+                localStorage.removeItem('email');
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+
+</html>

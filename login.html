@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - STEM Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <section class="Login_page">
+        <!-- Background Video -->
+        <video autoplay muted loop id="bgVideo">
+                <source src="bg1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        <a href="index.html"><img class="Login_logo" src="Logo1.png" alt="Logo"></a>
+        <h2 class="Heading">PlayForge</h2>
+        <div class="login-container">
+            <h2 class="login_txt">Login</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="login_email">Email:</label>
+                    <input type="email" id="login_email" name="login_email" required>
+                </div>
+                <div class="input-group">
+                    <label for="login_password">Password:</label>
+                    <input type="password" id="login_password" name="login_password" required>
+                </div>
+                <button type="button" class="login__btn" id="loginBtn">Login</button>
+            </form>
+            <p class="para_c">Don't have an account? <a href="signup.html">Signup</a></p>
+        </div>
+    </section>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js"; import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-analytics.js"; import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js"; const firebaseConfig = { apiKey: "AIzaSyD60RgCn9KQZhz6Qovun8wxsDiILWtQokM", authDomain: "playforge-auth.firebaseapp.com", projectId: "playforge-auth",
+        storageBucket: "playforge-auth.appspot.com", messagingSenderId: "596151253218", appId: "1:596151253218:web:6440d7b95bce753052c6bb", measurementId: "G-D9250TY62R" }; const app = initializeApp(firebaseConfig); const analytics = getAnalytics(app);
+        const auth = getAuth(); const db = getDatabase(app); document.getElementById('loginBtn').addEventListener('click', function() { const email = document.getElementById('login_email').value; const password = document.getElementById('login_password').value;
+        signInWithEmailAndPassword(auth, email, password) .then((userCredential) => { const user = userCredential.user; const uid = user.uid; const userRef = ref(db, 'users/' + uid); get(userRef).then((snapshot) => { if (snapshot.exists()) { const userData
+        = snapshot.val(); localStorage.setItem('username', userData.username); localStorage.setItem('email', user.email); alert('Welcome! Login Successful'); window.location.href = 'index.html'; // Redirect to home page } else { console.log("No data available");
+        } }).catch((error) => { console.error(error); }); }) .catch((error) => { const errorMessage = error.message; console.log(errorMessage); alert(errorMessage); }); });
+    </script>
+</body>
+
+</html>
